@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RepTrainer — AI Sales Training for High-Performance Teams</title>
+  <meta name="description" content="RepTrainer uses AI to simulate real sales conversations — so your team masters objection handling, product knowledge, and closing before talking to real clients." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f1f3d;
+      --navy-light: #162845;
+      --navy-mid: #1e3a5f;
+      --blue: #2563eb;
+      --blue-hover: #1d4ed8;
+      --blue-light: #eff6ff;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-400: #94a3b8;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius: 10px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--gray-800);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .logo span { color: var(--blue); }
+
+    nav { display: flex; align-items: center; gap: 32px; }
+
+    nav a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      border: none;
+      outline: none;
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-hover);
+      box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+    }
+
+    .btn-primary-lg {
+      padding: 14px 30px;
+      font-size: 1rem;
+      border-radius: 9px;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+
+    .btn-outline:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--gray-700);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      background: var(--navy);
+      padding: 100px 24px 90px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37,99,235,0.2);
+      border: 1px solid rgba(37,99,235,0.4);
+      color: #93c5fd;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .hero-badge::before {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3b82f6;
+    }
+
+    #hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
+    }
+
+    #hero h1 em {
+      font-style: normal;
+      color: #60a5fa;
+    }
+
+    #hero p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: #94a3b8;
+      max-width: 640px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .hero-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 80px 24px; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    .section-head { margin-bottom: 52px; }
+
+    /* ── PROBLEM ── */
+    #problem { background: var(--gray-50); }
+
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.4rem;
+    }
+
+    .card-icon.red { background: #fef2f2; }
+    .card-icon.amber { background: #fffbeb; }
+    .card-icon.blue { background: #eff6ff; }
+
+    .card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .card p { font-size: 0.93rem; color: var(--gray-600); line-height: 1.65; }
+
+    /* ── SOLUTION ── */
+    #solution { background: var(--white); }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    .value-item {
+      padding: 28px 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .value-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--blue);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .value-item .num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .value-item h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .value-item p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
+
+    /* ── HOW IT WORKS ── */
+    #how { background: var(--navy); }
+
+    #how .section-title { color: var(--white); }
+    #how .section-label { color: #60a5fa; }
+    #how .section-sub { color: #94a3b8; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      padding: 36px 24px;
+    }
+
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: var(--white);
+      font-size: 1.3rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.4);
+    }
+
+    .step h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .step p { font-size: 0.93rem; color: #94a3b8; line-height: 1.65; }
+
+    /* ── FEATURES ── */
+    #features { background: var(--gray-50); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 20px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--blue-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .feature-item h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+
+    .feature-item p { font-size: 0.87rem; color: var(--gray-600); line-height: 1.55; }
+
+    /* ── SCREENSHOTS ── */
+    #screenshots { background: var(--white); }
+
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .screenshot-placeholder {
+      aspect-ratio: 16/10;
+      background: var(--gray-100);
+      border: 2px dashed var(--gray-200);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--gray-400);
+    }
+
+    .screenshot-placeholder svg { opacity: 0.5; }
+
+    .screenshot-placeholder span { font-size: 0.85rem; font-weight: 500; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--gray-50); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+
+    .plan {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 30px 24px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .plan.featured {
+      border: 2px solid var(--blue);
+      position: relative;
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--blue);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.3px;
+    }
+
+    .plan-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+
+    .plan-price {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .plan-price sup {
+      font-size: 1rem;
+      font-weight: 600;
+      vertical-align: super;
+      letter-spacing: 0;
+    }
+
+    .plan-price small {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0;
+    }
+
+    .plan-desc {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-bottom: 20px;
+      line-height: 1.5;
+      min-height: 36px;
+    }
+
+    .plan-divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin-bottom: 20px;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .plan-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 0.87rem;
+      color: var(--gray-700);
+      line-height: 1.45;
+    }
+
+    .plan-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%232563eb'%3E%3Cpath fill-rule='evenodd' d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .plan-features li.extra { color: var(--blue); font-weight: 600; }
+    .plan-features li.extra::before {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%232563eb'%3E%3Cpath d='M8 1a.5.5 0 01.5.5v6h6a.5.5 0 010 1h-6v6a.5.5 0 01-1 0v-6H1.5a.5.5 0 010-1h6v-6A.5.5 0 018 1z'/%3E%3C/svg%3E");
+    }
+
+    .plan .btn { width: 100%; }
+
+    /* ── FORM ── */
+    #access { background: var(--white); }
+
+    .form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      padding: 48px 40px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+
+    .field label {
+      font-size: 0.87rem;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .field input,
+    .field select {
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-family: var(--font);
+      font-size: 0.93rem;
+      color: var(--gray-800);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2394a3b8'%3E%3Cpath d='M4.47 6.47a.75.75 0 011.06 0L8 8.94l2.47-2.47a.75.75 0 111.06 1.06l-3 3a.75.75 0 01-1.06 0l-3-3a.75.75 0 010-1.06z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
+
+    #form-submit { width: 100%; padding: 14px; font-size: 1rem; margin-top: 8px; }
+
+    #form-msg {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      font-weight: 500;
+    }
+
+    #form-msg.success {
+      display: block;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    #form-msg.error {
+      display: block;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 36px 24px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .footer-logo span { color: #60a5fa; }
+
+    .footer-copy { font-size: 0.85rem; color: #64748b; }
+
+    .footer-links { display: flex; gap: 20px; }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: #64748b;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: #94a3b8; }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 24px;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 99;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      display: block;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .mobile-nav a:hover { background: var(--gray-100); color: var(--blue); }
+
+    .mobile-nav .btn { margin-top: 8px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav, .header-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 20px; }
+      .form-wrapper { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      #hero { padding: 72px 20px 64px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .plan.featured { margin-top: 16px; }
+    }
+
+    /* ── SMOOTH SCROLL OFFSET ── */
+    [id] { scroll-margin-top: 80px; }
+  </style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">Rep<span>Trainer</span></a>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#access">Get Access</a>
+    </nav>
+    <a href="#access" class="btn btn-primary header-cta">Get Free Access</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#features" onclick="closeMobileNav()">Features</a>
+  <a href="#how" onclick="closeMobileNav()">How It Works</a>
+  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a href="#access" onclick="closeMobileNav()">Get Access</a>
+  <a href="#access" class="btn btn-primary" onclick="closeMobileNav()">Get Free Access</a>
+</div>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">AI-Powered Sales Training</div>
+    <h1>Your Reps Are Losing Deals<br /><em>They Could Have Won.</em></h1>
+    <p>RepTrainer uses AI to simulate real sales conversations — so your team masters objection handling, product knowledge, and closing before talking to real clients.</p>
+    <div class="hero-cta-group">
+      <a href="#access" class="btn btn-primary btn-primary-lg">Get Free Demo Access</a>
+      <a href="#how" class="btn btn-outline btn-primary-lg">See How It Works</a>
+    </div>
+    <p class="hero-note">No credit card required &nbsp;·&nbsp; Set up in minutes</p>
+  </div>
+</section>
+
+<!-- ════ PROBLEM ════ -->
+<section id="problem">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">Why Sales Teams Struggle</h2>
+      <p class="section-sub">Even talented reps underperform when they haven't had enough realistic practice. Traditional training doesn't cut it.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card-icon red">📚</div>
+        <h3>Reps don't know the product well enough</h3>
+        <p>When prospects ask detailed questions, undertrained reps freeze, fumble, or give wrong answers — destroying trust instantly.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon amber">⚡</div>
+        <h3>They can't handle objections under pressure</h3>
+        <p>Objections are inevitable. Without repetition in realistic conditions, reps crumble when it matters most — right in front of the buyer.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon blue">🎤</div>
+        <h3>New hires are too nervous to communicate confidently</h3>
+        <p>Onboarding takes too long and role-play with managers is infrequent and awkward. New reps go live before they're truly ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SOLUTION ════ -->
+<section id="solution">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">The Solution</span>
+      <h2 class="section-title">What RepTrainer Does For You</h2>
+      <p class="section-sub">Give your team an always-available AI training partner that makes them sharper, faster, and more consistent.</p>
+    </div>
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="num">01</div>
+        <h3>Train reps cheaply and continuously — no manager time wasted</h3>
+        <p>Reps practice at any time without pulling sales managers away from revenue-generating work.</p>
+      </div>
+      <div class="value-item">
+        <div class="num">02</div>
+        <h3>Run ongoing skill-ups to keep your team sharp</h3>
+        <p>Schedule recurring practice sessions so skills don't decay after onboarding. Consistent performance all year.</p>
+      </div>
+      <div class="value-item">
+        <div class="num">03</div>
+        <h3>Roll out new products and features to reps fast</h3>
+        <p>Launching something new? Make sure every rep can sell it confidently before customer conversations start.</p>
+      </div>
+      <div class="value-item">
+        <div class="num">04</div>
+        <h3>Spot weak performers early and fix gaps before they cost you deals</h3>
+        <p>AI-generated reports reveal skill gaps across your team so you can intervene before losses stack up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ HOW IT WORKS ════ -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Process</span>
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-sub">Three simple steps. Realistic practice, instant results.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Rep starts a conversation with an AI client</h3>
+        <p>Choose from a library of AI personas — each with different personalities, industries, and buying styles.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>AI simulates real objections, questions, and buying signals</h3>
+        <p>The AI pushes back just like a real prospect — challenging assumptions, stalling, and testing your rep's knowledge.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Manager gets a detailed performance report instantly</h3>
+        <p>Every session generates a score, coaching notes, and performance trends — sent straight to the admin dashboard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FEATURES ════ -->
+<section id="features">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Features</span>
+      <h2 class="section-title">Everything Your Team Needs to Win</h2>
+      <p class="section-sub">Built for real sales environments — not generic training tools.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🧠</div>
+        <div>
+          <h3>Realistic AI personas</h3>
+          <p>Different personalities, industries, objections, and buying behaviours — indistinguishable from real prospects.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💬</div>
+        <div>
+          <h3>Chat-based simulation</h3>
+          <p>Familiar messenger interface means zero learning curve. Reps jump straight into practice without setup friction.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div>
+          <h3>Instant AI feedback and coaching</h3>
+          <p>Every session ends with targeted coaching — what went well, what to improve, and how to handle it next time.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div>
+          <h3>Admin dashboard with team analytics</h3>
+          <p>Track individual and team-wide performance over time. Identify patterns, gaps, and top performers at a glance.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎧</div>
+        <div>
+          <h3>Support team training module</h3>
+          <p>Not just sales — train customer success and support teams to handle complex inquiries with confidence.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div>
+          <h3>Secure, enterprise-ready</h3>
+          <p>Role-based access control, data privacy by design, and dedicated admin controls for your entire organisation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SCREENSHOTS ════ -->
+<section id="screenshots">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Product</span>
+      <h2 class="section-title">See RepTrainer in Action</h2>
+      <p class="section-sub">A clean, intuitive interface your reps will actually want to use.</p>
+    </div>
+    <div class="screenshots-grid">
+      <div class="screenshot-placeholder">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="6" width="32" height="24" rx="3" stroke="#94a3b8" stroke-width="2"/>
+          <circle cx="14" cy="16" r="4" stroke="#94a3b8" stroke-width="2"/>
+          <path d="M4 26l8-6 6 5 6-4 12 9" stroke="#94a3b8" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <span>Chat Simulation Interface</span>
+      </div>
+      <div class="screenshot-placeholder">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="6" width="32" height="24" rx="3" stroke="#94a3b8" stroke-width="2"/>
+          <rect x="8" y="12" width="10" height="8" rx="1" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="22" y1="14" x2="32" y2="14" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="22" y1="18" x2="30" y2="18" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="8" y1="24" x2="32" y2="24" stroke="#94a3b8" stroke-width="1.5"/>
+        </svg>
+        <span>Admin Analytics Dashboard</span>
+      </div>
+      <div class="screenshot-placeholder">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="6" width="32" height="24" rx="3" stroke="#94a3b8" stroke-width="2"/>
+          <path d="M12 24l4-8 5 6 3-4 6 6" stroke="#94a3b8" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="12" cy="24" r="1.5" fill="#94a3b8"/>
+          <circle cx="16" cy="16" r="1.5" fill="#94a3b8"/>
+          <circle cx="21" cy="22" r="1.5" fill="#94a3b8"/>
+          <circle cx="24" cy="18" r="1.5" fill="#94a3b8"/>
+          <circle cx="30" cy="24" r="1.5" fill="#94a3b8"/>
+        </svg>
+        <span>Performance Report</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRICING ════ -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-head">
+      <span class="section-label">Pricing</span>
+      <h2 class="section-title">Simple, Transparent Pricing</h2>
+      <p class="section-sub">Start for free. Scale as your team grows. No hidden fees.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- Demo -->
+      <div class="plan">
+        <div class="plan-name">Demo</div>
+        <div class="plan-price">Free</div>
+        <p class="plan-desc">Try RepTrainer risk-free with a fully functional demo account.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>1 Admin</li>
+          <li>1 Sales Rep</li>
+          <li>1 Basic product</li>
+          <li>5 Basic AI clients</li>
+          <li>Core simulation mode</li>
+        </ul>
+        <a href="#access" class="btn btn-outline">Get Free Access</a>
+      </div>
+
+      <!-- Starter -->
+      <div class="plan">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><sup>$</sup>49<small>/mo</small></div>
+        <p class="plan-desc">Perfect for small teams getting serious about rep performance.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>1 Admin</li>
+          <li>10 Sales Reps</li>
+          <li>1 Customizable product</li>
+          <li>5 Customizable AI clients</li>
+          <li>Core simulation mode</li>
+          <li class="extra">+ Attestation mode</li>
+        </ul>
+        <a href="#access" class="btn btn-outline">Get Started</a>
+      </div>
+
+      <!-- Growth -->
+      <div class="plan featured">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-price"><sup>$</sup>99<small>/mo</small></div>
+        <p class="plan-desc">For growing teams that need more products, personas, and insight.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>1 Admin</li>
+          <li>20 Sales Reps</li>
+          <li>2 Customizable products</li>
+          <li>10 Custom AI clients</li>
+          <li>All simulation modes</li>
+          <li class="extra">+ Attestation mode</li>
+          <li class="extra">+ Feature promotion mode</li>
+        </ul>
+        <a href="#access" class="btn btn-primary">Get Started</a>
+      </div>
+
+      <!-- Corp -->
+      <div class="plan">
+        <div class="plan-name">Corp</div>
+        <div class="plan-price" style="font-size:1.5rem;padding-top:6px;">Custom</div>
+        <p class="plan-desc">Enterprise solution tailored to your organisation's exact needs.</p>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Fully customized setup</li>
+          <li>Unlimited team members</li>
+          <li>Unlimited editable clients</li>
+          <li>Dedicated onboarding</li>
+          <li>All modes included</li>
+          <li>Priority support & SLA</li>
+        </ul>
+        <a href="#access" class="btn btn-outline">Book a Call</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════ ACCESS FORM ════ -->
+<section id="access">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom: 40px;">
+      <span class="section-label">Get Started</span>
+      <h2 class="section-title">Get Free Access to RepTrainer</h2>
+      <p class="section-sub" style="margin: 0 auto;">No credit card. No commitment. Your demo account is ready in minutes.</p>
+    </div>
+    <div class="form-wrapper">
+      <form id="access-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Jane" required autocomplete="given-name" />
+          </div>
+          <div class="field">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Smith" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="email">Work Email</label>
+          <input type="email" id="email" name="email" placeholder="jane@company.com" required autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Acme Corp" required autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="role">Your Role</label>
+          <select id="role" name="role" required>
+            <option value="" disabled selected>Select your role…</option>
+            <option value="Sales Manager">Sales Manager</option>
+            <option value="Head of Sales">Head of Sales</option>
+            <option value="HR Director">HR Director</option>
+            <option value="CEO">CEO</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="form-submit">Get My Free Access</button>
+        <div id="form-msg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Rep<span>Trainer</span></div>
+    <div class="footer-copy">RepTrainer &copy; 2026. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Mobile Nav ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+      mobileNav.classList.remove('open');
+    }
+  });
+
+  // ── Form Submission ──
+  const form = document.getElementById('access-form');
+  const submitBtn = document.getElementById('form-submit');
+  const formMsg = document.getElementById('form-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Basic validation
+    const fields = ['first_name', 'last_name', 'email', 'company', 'role'];
+    let valid = true;
+
+    fields.forEach(name => {
+      const el = form.elements[name];
+      if (!el.value.trim()) {
+        el.style.borderColor = '#ef4444';
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+      }
+    });
+
+    const emailEl = form.elements['email'];
+    if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+      emailEl.style.borderColor = '#ef4444';
+      valid = false;
+    }
+
+    if (!valid) {
+      formMsg.className = 'error';
+      formMsg.textContent = 'Please fill in all required fields correctly.';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    formMsg.className = '';
+    formMsg.style.display = 'none';
+
+    const payload = {
+      first_name: form.elements['first_name'].value.trim(),
+      last_name: form.elements['last_name'].value.trim(),
+      email: form.elements['email'].value.trim(),
+      company: form.elements['company'].value.trim(),
+      role: form.elements['role'].value,
+    };
+
+    try {
+      const res = await fetch('/api/demo/create-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'demo-landing-key',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        form.reset();
+        formMsg.className = 'success';
+        formMsg.textContent = 'Check your email — your credentials are on the way!';
+        submitBtn.textContent = 'Request Sent';
+      } else {
+        throw new Error('Server error: ' + res.status);
+      }
+    } catch (err) {
+      formMsg.className = 'error';
+      formMsg.textContent = 'Something went wrong. Please try again or email us directly.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Get My Free Access';
+    }
+  });
+
+  // Reset field borders on input
+  form.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', () => { el.style.borderColor = ''; });
+  });
+</script>
+
+</body>
+</html>
